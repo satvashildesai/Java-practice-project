@@ -3,12 +3,12 @@ package com.practiceproject.game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class App {
 	static BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-
 	static Logger log = (Logger) LogManager.getLogger(App.class);
 
 	public static void main(String[] args) {
@@ -17,23 +17,24 @@ public class App {
 
 		try {
 			do {
-				log.info("\n\nWhich game you want to play?");
-				log.info("1) Number game");
-				log.info("2) Questions Answers game");
+				log.info("\n1) Login");
+				log.info("2) Register");
 				log.info("3) EXIT \n==> ");
 
 				// Take game choice from user
 				String userChoice = bReader.readLine();
 
 				switch (userChoice) {
-				// Number Game
+				// Login user
 				case "1":
-					NumberGame.startGame();
+					Login login = new Login();
+					login.loginToUser();
 					break;
 
-				// Question Answer game
+				// Register user
 				case "2":
-					QuestionAnswerGame.startGame();
+					Register register = new Register();
+					register.registerUser();
 					break;
 
 				// Exit from game
