@@ -26,7 +26,7 @@ public class NumberGame {
 			boolean isTerminate = false;
 
 			do {
-				log.info("\nPress:\n 1)Play\n 2)Game history\n 3)EXIT\n ==> ");
+				log.info("\nPress:\n 1)Play\n 2)Game history\n 3)Back\n ==> ");
 				String userCoice = bReader.readLine();
 
 				switch (userCoice) {
@@ -41,7 +41,7 @@ public class NumberGame {
 					user.playHistory("number_game");
 					break;
 
-				// Exit game
+				// Back to dashbord
 				case "3":
 					isTerminate = true;
 					break;
@@ -76,7 +76,7 @@ public class NumberGame {
 					log.info("\nYOU LOSE THE GAME!!!");
 					break;
 				}
-				log.info("\nYou have " + counter + " chance");
+				log.info("\nYou have " + counter + " chance to guess the right number between 1 to 10");
 
 				// Take number from user
 				log.info("Enter number between 1 to 10 ==> ");

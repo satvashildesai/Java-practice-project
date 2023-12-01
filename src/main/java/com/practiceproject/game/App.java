@@ -12,7 +12,10 @@ public class App {
 	static Logger log = (Logger) LogManager.getLogger(App.class);
 
 	public static void main(String[] args) {
+		startApp();
+	}
 
+	static void startApp() {
 		boolean isTerminate = false;
 
 		try {

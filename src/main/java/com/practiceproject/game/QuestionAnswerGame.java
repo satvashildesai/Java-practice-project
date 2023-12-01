@@ -37,7 +37,7 @@ public class QuestionAnswerGame {
 			boolean isTerminate = false;
 
 			do {
-				log.info("\nPress:\n 1)Play\n 2)Player history\n 3)EXIT\n ==> ");
+				log.info("\nPress:\n 1)Play\n 2)Player history\n 3)Back\n ==> ");
 				String userCoice = bReader.readLine();
 
 				switch (userCoice) {
@@ -52,6 +52,7 @@ public class QuestionAnswerGame {
 					user.playHistory("question_answer_game");
 					break;
 
+				// Back to dashbord
 				case "3":
 					isTerminate = true;
 					break;
@@ -82,7 +83,7 @@ public class QuestionAnswerGame {
 
 		// Display the question to user and store their result
 		log.info(
-				"Select right option for the following 5 questions:\nIf you give more than 3 right answer then you win else you lose the game\n");
+				"Select right option of the following 5 questions:\nIf you give more than 3 right answer then you win else you lose the game\n");
 		for (int randomNum : randomNumList) {
 
 			// Take input from user

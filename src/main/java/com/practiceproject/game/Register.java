@@ -28,56 +28,19 @@ public class Register {
 
 		try {
 			// Name of user
-			log.info("Enter your name: ");
-			name = bReader.readLine();
+			this.name = Input.getName();
 
 			// Age of user
-			while (true) {
-				try {
-					log.info("Enter your age: ");
-					int tempAge = Integer.parseInt(bReader.readLine());
-
-					if (tempAge >= 12 && tempAge <= 80) {
-						this.age = tempAge;
-						break;
-					} else {
-						log.warn("Only users between age 12 to 80 can register.");
-					}
-
-				} catch (IOException e) {
-					log.error(e);
-				} catch (NumberFormatException e) {
-					log.error("Please enter valid age.");
-				}
-			}
+			this.age = Input.getAge();
 
 			// Mobile number of user
-			while (true) {
-				try {
-					log.info("Enter your mobile number: ");
-					String tempMobNum = bReader.readLine();
-
-					if (tempMobNum.length() == 10) {
-						this.mobileNumber = Long.parseLong(tempMobNum);
-						break;
-					} else {
-						log.warn("Please enter valid mobile number.\n");
-					}
-
-				} catch (IOException e) {
-					log.error(e);
-				} catch (NumberFormatException e) {
-					log.error("Please enter valid mobile number.");
-				}
-			}
+			this.mobileNumber = Input.getMobNumber();
 
 			// username of the user
-			log.info("Enter username: ");
-			username = bReader.readLine();
+			this.username = Input.getUsername();
 
 			// password of the user
-			log.info("Enter password: ");
-			password = bReader.readLine();
+			this.password = Input.getPassword();
 
 			// Store user personal information to database
 			storeUserData();
@@ -98,7 +61,7 @@ public class Register {
 
 			if (status > 0) {
 				enrollAllGame();
-				log.info("Data store succefully!");
+				log.info("Registration succefull!");
 			} else {
 				log.error("Failed to store data!");
 			}

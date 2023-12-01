@@ -34,7 +34,10 @@ public class User {
 				log.info("\n\nWhich game you want to play?");
 				log.info("1) Number game");
 				log.info("2) Questions Answers game");
-				log.info("3) EXIT \n==> ");
+				log.info("\nProfile:");
+				log.info("3) Edit profile");
+				log.info("4) Delete account");
+				log.info("\n5) EXIT \n==> ");
 
 				// Take game choice from user
 				String userChoice = bReader.readLine();
@@ -46,17 +49,27 @@ public class User {
 					numberGame.startGame(username, password);
 					break;
 
-				// Question Answer game
+				// Question Answer game1
+
 				case "2":
 					QuestionAnswerGame queAnsGame = new QuestionAnswerGame();
 					queAnsGame.startGame(username, password);
 					break;
 
-				// Exit from game
 				case "3":
+					editProfile(username);
+					break;
+
+				case "4":
+					deleteAccount(username);
+					App.startApp();
 					System.exit(0);
-					isTerminate = true;
-					log.info("Thank you!");
+					break;
+
+				// Exit from game
+				case "5":
+					log.info("Thank you!!");
+					System.exit(0);
 					break;
 
 				default:
@@ -69,6 +82,77 @@ public class User {
 		} catch (Exception e) {
 			log.error("Unwanted exception arise");
 		}
+	}
+
+	// Edit profile
+	void editProfile(String username) throws IOException {
+		boolean isTerminate = false;
+		do {
+			log.info("\nSelect to edit:");
+			log.info("1) Name");
+			log.info("2) Age");
+			log.info("3) Mobile number");
+			log.info("4) Cancle\n==>");
+
+			String userChoice = bReader.readLine();
+			String queryToUpdateProfile = "";
+			switch (userChoice) {
+			case "1":
+				String name = Input.getName();
+				queryToUpdateProfile = "update users set name = '" + name + "' where username = '" + username + "';";
+				updateProfileInDB(queryToUpdateProfile);
+				break;
+
+			case "2":
+				int age = Input.getAge();
+				queryToUpdateProfile = "update users set age = '" + age + "' where username = '" + username + "';";
+				updateProfileInDB(queryToUpdateProfile);
+				break;
+
+			case "3":
+				long mobileNumber = Input.getMobNumber();
+				queryToUpdateProfile = "update users set mobile = '" + mobileNumber + "' where username = '" + username
+						+ "';";
+				updateProfileInDB(queryToUpdateProfile);
+				break;
+
+			case "4":
+				isTerminate = true;
+				break;
+
+			default:
+				break;
+			}
+		} while (!isTerminate);
+
+	}
+
+	// Delete account
+	void deleteAccount(String username) {
+		try {
+			String queryDeleteFromUserHistory = "delete from user_history where username = '" + username + "';";
+			String queryDeleteuser = "delete from users where username = '" + username + "';";
+
+			statement = connection.createStatement();
+			int status = statement.executeUpdate(queryDeleteFromUserHistory);
+			if (status > 0) {
+				statement = connection.createStatement();
+				statement.executeUpdate(queryDeleteuser);
+			}
+
+		} catch (SQLException e) {
+			log.error(e);
+		}
+	}
+
+	void updateProfileInDB(String queryToUpdateProfile) {
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(queryToUpdateProfile);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+
 	}
 
 	// Display player's playing history according to game
