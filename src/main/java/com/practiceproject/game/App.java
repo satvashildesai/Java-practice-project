@@ -5,17 +5,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.core.Logger;
+
+import com.practiceproject.game.data.ConnectDB;
+import com.practiceproject.game.data.ConnectHDB;
+import com.practiceproject.game.view.Login;
+import com.practiceproject.game.view.Register;
+
 import org.apache.logging.log4j.LogManager;
 
 public class App {
-	static BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
+	public static BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
 	static Logger log = (Logger) LogManager.getLogger(App.class);
 
 	public static void main(String[] args) {
-		startApp();
+		try {
+			startApp();
+		} finally {
+			ConnectHDB.closeSessionFactory();
+		}
 	}
 
-	static void startApp() {
+	public static void startApp() {
 		boolean isTerminate = false;
 
 		try {
@@ -43,6 +53,7 @@ public class App {
 				// Exit from game
 				case "3":
 					isTerminate = true;
+					ConnectDB.closeConnection();
 					log.info("Thank you!");
 					break;
 
@@ -54,7 +65,7 @@ public class App {
 		} catch (IOException e) {
 			log.error("Something wrong with I/O system!");
 		} catch (Exception e) {
-			log.error("Unwanted exception arise");
+			log.error(e);
 		}
 	}
 }

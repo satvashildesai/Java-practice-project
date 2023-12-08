@@ -1,15 +1,17 @@
-package com.practiceproject.game;
+package com.practiceproject.game.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
 public class ConnectDB {
 	static Logger log = (Logger) LogManager.getLogger(ConnectDB.class);
-	static Connection connection = null;
+	private static Connection connection = null;
 
+	// Create only one database connection at the time of JVM loads the class
 	static {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -25,7 +27,11 @@ public class ConnectDB {
 	}
 
 	// Return database connection
-	static Connection getDbConnection() {
+	public static Connection getDbConnection() {
 		return connection;
+	}
+
+	public static void closeConnection() throws SQLException {
+		connection.close();
 	}
 }
